@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.dsl.KotlinJvmCompile
+
 buildscript {
     repositories {
         google()
@@ -14,5 +16,9 @@ allprojects {
         google()
         jcenter()
 
+    }
+
+    tasks.withType<KotlinJvmCompile>().configureEach {
+        kotlinOptions.jvmTarget = "1.8"
     }
 }

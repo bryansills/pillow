@@ -28,7 +28,7 @@ dependencies {
     implementation("com.h2database:h2:1.4.196")
     implementation("org.jetbrains.exposed:exposed-core:0.18.1")
     implementation("org.jetbrains.exposed:exposed-jdbc:0.18.1")
-    implementation("org.postgresql:postgresql:42.2.2")
+    implementation("org.postgresql:postgresql:42.2.5")
     implementation("com.zaxxer:HikariCP:3.4.1")
 
     testImplementation("io.ktor:ktor-server-tests:1.2.6")
