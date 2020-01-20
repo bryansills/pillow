@@ -28,7 +28,6 @@ fun main(args: Array<String>): Unit = io.ktor.server.netty.EngineMain.main(args)
 @JvmOverloads
 fun Application.module(testing: Boolean = false) {
     install(DefaultHeaders)
-    initDb()
     routing {
         get("/") {
             println("YOYOYO ROOT")
@@ -39,6 +38,7 @@ fun Application.module(testing: Boolean = false) {
             call.respondText(databaseStuff(), contentType = ContentType.Text.Plain)
         }
         get("/users") {
+            initDb()
             insert(UserDTO("FAKE", "NAMERSON", (0..69).random()))
             call.respondText(getAllUsers().toString(), contentType = ContentType.Text.Plain)
         }
@@ -88,7 +88,6 @@ fun initDb() {
     config.jdbcUrl = dbUrl
     config.username = username
     config.password = password
-    config.dataSourceClassName = "org.postgresql.ds.PGSimpleDataSource"
 
     val ds = HikariDataSource(config)
     Database.connect(ds)
