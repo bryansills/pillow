@@ -40,6 +40,8 @@ private fun getConnection(): Connection {
 
 private fun databaseStuff(): String {
     val connection = getConnection()
+    println(connection.toString())
+    println("HELLO LOGS!")
 
     val stmt: Statement = connection.createStatement()
     stmt.executeUpdate("DROP TABLE IF EXISTS ticks")
@@ -51,6 +53,7 @@ private fun databaseStuff(): String {
     while (rs.next()) {
         result += rs.getTimestamp("tick")
     }
+    println(result)
 
     return result
 }
