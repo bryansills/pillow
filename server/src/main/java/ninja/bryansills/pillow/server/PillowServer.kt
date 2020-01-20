@@ -50,7 +50,7 @@ private fun getConnection(): Connection {
     val dbUri = URI(System.getenv("DATABASE_URL"))
     val username: String = dbUri.userInfo.split(":")[0]
     val password: String = dbUri.userInfo.split(":")[1]
-    val dbUrl = "jdbc:postgresql://" + dbUri.host + dbUri.path
+    val dbUrl = "jdbc:postgresql://" + dbUri.host + dbUri.path + "?sslmode=require"
     println("dbUrl: $dbUrl, username: $username, password: $password")
     DriverManager.getDrivers().iterator().forEach {
         println(it.toString())
