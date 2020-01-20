@@ -21,9 +21,11 @@ fun Application.module(testing: Boolean = false) {
     install(DefaultHeaders)
     routing {
         get("/") {
+            println("YOYOYO ROOT")
             call.respondText("HELLO BUTTZ FROM BUILT DOCKER!", contentType = ContentType.Text.Plain)
         }
         get("/database") {
+            println("UGHHHHHHHHHHHHHHHHHHHH")
             call.respondText(databaseStuff(), contentType = ContentType.Text.Plain)
         }
     }
@@ -32,9 +34,10 @@ fun Application.module(testing: Boolean = false) {
 @Throws(URISyntaxException::class, SQLException::class)
 private fun getConnection(): Connection {
     val dbUri = URI(System.getenv("DATABASE_URL"))
-    val username: String = dbUri.userInfo.split(":").get(0)
-    val password: String = dbUri.userInfo.split(":").get(1)
+    val username: String = dbUri.userInfo.split(":")[0]
+    val password: String = dbUri.userInfo.split(":")[1]
     val dbUrl = "jdbc:postgresql://" + dbUri.host + dbUri.path
+    println("dbUrl: $dbUrl, username: $username, password: $password")
     return DriverManager.getConnection(dbUrl, username, password)
 }
 
