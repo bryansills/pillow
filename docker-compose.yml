@@ -5,3 +5,12 @@ services:
     build: ./
     ports:
     - "8080:8080"
+    depends_on:
+      - db
+    environment:
+      DATABASE_URL: "postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@localhost/${POSTGRES_USER}"
+  db:
+    image: postgres:9.6
+    environment:
+      POSTGRES_USER: "${POSTGRES_USER}"
+      POSTGRES_PASSWORD: "${POSTGRES_PASSWORD}"

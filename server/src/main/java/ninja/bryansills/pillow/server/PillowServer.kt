@@ -47,12 +47,15 @@ fun Application.module(testing: Boolean = false) {
 
 @Throws(URISyntaxException::class, SQLException::class)
 private fun getConnection(): Connection {
-    val dbUri = URI(System.getenv("DATABASE_URL"))
+    val envVar = System.getenv("DATABASE_URL")
+    println("ENV VAR: $envVar")
+    val dbUri = URI(envVar)
     val username: String = dbUri.userInfo.split(":")[0]
     val password: String = dbUri.userInfo.split(":")[1]
-    val dbUrl = "jdbc:postgresql://" + dbUri.host + dbUri.path + "?sslmode=require"
+    val dbUrl = "jdbc:postgresql://" + dbUri.host + dbUri.path
     println("dbUrl: $dbUrl, username: $username, password: $password")
     DriverManager.getDrivers().iterator().forEach {
+        println("--- SOMETHING")
         println(it.toString())
     }
     return DriverManager.getConnection(dbUrl, username, password)
