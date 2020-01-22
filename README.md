@@ -13,23 +13,18 @@ $ docker-machine env default
 $ eval $(docker-machine env default)
 ```
 
-Once your Docker virtual machine is up and running, build the server by executing the following command within the root of this repository:
-
-```
-$ docker build -t pillow .
-```
-
-After the build finishes, run the following Docker commands to launch the web server:
+Once your Docker setup is up and running, execute the following commands to start the server:
 
 ```
 $ docker-machine ip
-$ docker run -it -p 8080:8080 --rm pillow
+$ docker-compose up -d 
 ```
 
 The server should now be up and running. You can access from the `8080` port at the IP address that was outputted as a result of the `$ docker-machine ip` command.
-Once you are done, make sure to stop the Docker virtual machine by running the following command:
+Once you are done, make sure to stop the Docker virtual machine by running the following commands:
 
 ```
+$ docker-compose down
 $ docker-machine stop default
 ```
 
