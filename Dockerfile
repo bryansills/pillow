@@ -2,7 +2,7 @@ FROM openjdk:8-alpine AS BUILD_JAR
 WORKDIR /usr/app/
 COPY . .
 COPY ./server/src/main/java/ninja/bryansills/pillow/server/BuildConfig.kt.example ./server/src/main/java/ninja/bryansills/pillow/server/BuildConfig.kt
-RUN ./gradlew clean :server:build
+RUN ./gradlew clean :server:build --no-daemon
 
 FROM openjdk:8-jre-alpine
 RUN mkdir /app

@@ -17,7 +17,7 @@ Once your Docker setup is up and running, execute the following commands to star
 
 ```
 $ docker-machine ip
-$ docker-compose up -d 
+$ docker-compose up --build
 ```
 
 The server should now be up and running. You can access from the `8080` port at the IP address that was outputted as a result of the `$ docker-machine ip` command.
