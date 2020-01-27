@@ -37,7 +37,7 @@ fun Application.module(testing: Boolean = false) {
 }
 
 fun initDb() {
-    val dbUri = URI(System.getenv("DATABASE_URL"))
+    val dbUri = URI(BuildConfig.DATABASE_URL)
     val username: String = dbUri.userInfo.split(":")[0]
     val password: String = dbUri.userInfo.split(":")[1]
     val dbUrl = "jdbc:postgresql://" + dbUri.host + dbUri.path

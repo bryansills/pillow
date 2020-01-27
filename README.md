@@ -32,4 +32,23 @@ $ docker-machine stop default
 TODO
 
 ### Pushing to Heroku
-After setting up the necessary config vars in Heroku (see `BuildConfig.kt.example`), follow the instructions [HERE](https://devcenter.heroku.com/articles/build-docker-images-heroku-yml)
+#### For the initial deployment
+- (Not currently required) Set up the necessary config vars in Heroku (see `BuildConfig.kt`), follow [these instructions](https://devcenter.heroku.com/articles/build-docker-images-heroku-yml)
+- Add the Heroku Postgres addon into the Heroku project
+- Connect the repository to Heroku using the [Heroku CLI tool](https://devcenter.heroku.com/articles/heroku-command-line) by executing the following command:
+```
+$ heroku git:remote -a [RELACE-WITH-HEROKU-PROJECT-NAME]
+```
+- Set Heroku to build using Docker files by executing the following command:
+```
+$ heroku stack:set container
+```
+- Deploy the project by executing the following command:
+```
+$ git push heroku master
+```
+#### For subsequent deployments
+Run this command:
+```
+$ git push heroku master
+```
