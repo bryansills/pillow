@@ -3,7 +3,7 @@ import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 plugins {
     application
     kotlin("jvm")
-    id("com.github.johnrengelman.shadow") version "5.2.0"
+    id("com.github.johnrengelman.shadow") version "6.1.0"
 }
 
 group = "ninja.bryansills.pillow"
@@ -20,10 +20,10 @@ repositories {
 }
 
 dependencies {
-    implementation("org.jetbrains.kotlin:kotlin-stdlib:1.3.61")
-    implementation("io.ktor:ktor-server-netty:1.2.6")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib:1.4.21")
+    implementation("io.ktor:ktor-server-netty:1.3.0")
     implementation("ch.qos.logback:logback-classic:1.2.3")
-    implementation("io.ktor:ktor-server-core:1.2.6")
+    implementation("io.ktor:ktor-server-core:1.3.0")
 
     implementation("com.h2database:h2:1.4.196")
     implementation("org.jetbrains.exposed:exposed-core:0.18.1")
@@ -31,7 +31,7 @@ dependencies {
     compile("org.postgresql:postgresql:42.2.9")
     implementation("com.zaxxer:HikariCP:3.4.1")
 
-    testImplementation("io.ktor:ktor-server-tests:1.2.6")
+    testImplementation("io.ktor:ktor-server-tests:1.3.0")
 }
 
 tasks {
