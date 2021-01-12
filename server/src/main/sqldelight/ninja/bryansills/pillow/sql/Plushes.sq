@@ -1,0 +1,13 @@
+CREATE TABLE plush(
+  _id SERIAL PRIMARY KEY,
+  name TEXT NOT NULL,
+  coolness_level INTEGER NOT NULL
+);
+
+selectAll:
+SELECT *
+FROM plush;
+
+insertPlush:
+INSERT INTO plush (name, coolness_level)
+VALUES (?, ?);

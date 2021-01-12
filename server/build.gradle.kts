@@ -4,6 +4,7 @@ plugins {
     application
     kotlin("jvm")
     id("com.github.johnrengelman.shadow") version "6.1.0"
+    id("com.squareup.sqldelight")
 }
 
 group = "ninja.bryansills.pillow"
@@ -11,6 +12,13 @@ version = "0.0.1-SNAPSHOT"
 
 application {
     mainClassName = "io.ktor.server.netty.EngineMain"
+}
+
+sqldelight {
+    database("Database") {
+        packageName = "ninja.bryansills.pillow.sql"
+        dialect = "postgresql"
+    }
 }
 
 repositories {
@@ -30,6 +38,7 @@ dependencies {
     implementation("org.jetbrains.exposed:exposed-jdbc:0.18.1")
     compile("org.postgresql:postgresql:42.2.9")
     implementation("com.zaxxer:HikariCP:3.4.1")
+    implementation("com.squareup.sqldelight:jdbc-driver:1.4.3")
 
     testImplementation("io.ktor:ktor-server-tests:1.3.0")
 }

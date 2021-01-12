@@ -1,5 +1,7 @@
 package ninja.bryansills.pillow.server
 
+import com.squareup.sqldelight.db.SqlDriver
+import com.squareup.sqldelight.sqlite.driver.asJdbcDriver
 import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
 import io.ktor.application.Application
@@ -10,10 +12,12 @@ import io.ktor.http.ContentType
 import io.ktor.response.respondText
 import io.ktor.routing.get
 import io.ktor.routing.routing
+import ninja.bryansills.pillow.sql.Database
 import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.transactions.transaction
 import java.net.URI
 import java.util.*
+import javax.sql.DataSource
 import kotlin.collections.ArrayList
 
 
@@ -23,36 +27,35 @@ fun main(args: Array<String>): Unit = io.ktor.server.netty.EngineMain.main(args)
 @JvmOverloads
 fun Application.module(testing: Boolean = false) {
     install(DefaultHeaders)
-    initDb()
+    val database = initDb()
 
     routing {
         get("/") {
             call.respondText("HELLO BUTTZ FROM BUILT DOCKER!", contentType = ContentType.Text.Plain)
         }
         get("/users") {
-            insert(UserDTO("FAKE", "NAMERSON", (0..69).random()))
-            call.respondText(getAllUsers().joinToString(separator = "\n") { it.toString() }, contentType = ContentType.Text.Plain)
+            database.plushesQueries.insertPlush("Jigglypuff", 100)
+            val allPlushes = database.plushesQueries.selectAll().executeAsList().joinToString(separator = "\n")
+            call.respondText(allPlushes, contentType = ContentType.Text.Plain)
         }
     }
 }
 
-fun initDb() {
+fun initDb(): Database {
     val dbUri = URI(BuildConfig.DATABASE_URL)
-    val username: String = dbUri.userInfo.split(":")[0]
-    val password: String = dbUri.userInfo.split(":")[1]
-    val dbUrl = "jdbc:postgresql://" + dbUri.host + dbUri.path
+    val uriUsername: String = dbUri.userInfo.split(":")[0]
+    val uriPassword: String = dbUri.userInfo.split(":")[1]
+    val dbUrl = "jdbc:postgresql://${dbUri.host}${dbUri.path}"
 
-    val config = HikariConfig()
-    config.jdbcUrl = dbUrl
-    config.username = username
-    config.password = password
-
-    val ds = HikariDataSource(config)
-    Database.connect(ds)
-
-    transaction {
-        SchemaUtils.create(Users)
+    val config = HikariConfig().apply {
+        jdbcUrl = dbUrl
+        username = uriUsername
+        password = uriPassword
     }
+
+    val dataSource: DataSource = HikariDataSource(config)
+    val sqlDriver: SqlDriver = dataSource.asJdbcDriver()
+    return Database(sqlDriver)
 }
 
 object Users : Table() {
