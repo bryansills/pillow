@@ -18,6 +18,7 @@ sqldelight {
     database("Database") {
         packageName = "ninja.bryansills.pillow.sql"
         dialect = "postgresql"
+        deriveSchemaFromMigrations = true
     }
 }
 
@@ -28,7 +29,7 @@ repositories {
 }
 
 dependencies {
-    implementation("org.jetbrains.kotlin:kotlin-stdlib:1.4.21")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib:1.4.0")
     implementation("io.ktor:ktor-server-netty:1.3.0")
     implementation("ch.qos.logback:logback-classic:1.2.3")
     implementation("io.ktor:ktor-server-core:1.3.0")

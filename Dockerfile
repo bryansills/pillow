@@ -1,7 +1,7 @@
 FROM openjdk:11 AS BUILD_JAR
 WORKDIR /usr/app/
 COPY . .
-RUN ./gradlew clean :server:build --no-daemon
+RUN ./gradlew clean :server:build --no-daemon --stacktrace
 
 FROM openjdk:11-jre
 RUN mkdir /app

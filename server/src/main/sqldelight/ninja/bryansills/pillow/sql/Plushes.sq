@@ -1,9 +1,3 @@
-CREATE TABLE IF NOT EXISTS plush (
-  _id SERIAL PRIMARY KEY,
-  name TEXT NOT NULL,
-  coolness_level INT NOT NULL
-);
-
 selectAll:
 SELECT *
 FROM plush;
