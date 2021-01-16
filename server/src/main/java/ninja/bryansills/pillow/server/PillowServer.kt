@@ -55,6 +55,7 @@ fun initDb(): Database {
 
     val dataSource: DataSource = HikariDataSource(config)
     val sqlDriver: SqlDriver = dataSource.asJdbcDriver()
+    sqlDriver.migrateIfNeeded(Database.Schema)
     return Database(sqlDriver)
 }
 
